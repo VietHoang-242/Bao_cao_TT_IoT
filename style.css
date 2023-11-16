@@ -1,0 +1,412 @@
+body{
+    font-family: tahoma;
+    font-size: 28px;
+    width: 1000px;
+    margin: 0px auto;
+    background-image:url("kho_hang.jpg");
+    background-repeat: no-repeat;
+    background-size: 2000px 950px;
+}
+#header{
+    border:1px solid;
+    border-radius: 15px;
+    width: 1000px;
+    height: 70px;
+    background-color: rgb(166, 175, 245);
+    color: rgb(42, 41, 41);
+    text-align: center;
+    line-height: 70px;
+
+}
+#header #logo{
+    width: 70px;
+    height: 70px;
+    float: 5% ;
+}
+#banner{
+    border:1px solid;
+    border-radius: 15px;
+    height: 50px;
+    width: 1000px;
+    background-color:rgb(117, 195, 204);
+}
+#main{
+    border:1px solid;
+    border-radius: 15px;  
+    min-height:565px ;
+    width: 1000px;
+    background-color: beige;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#main #top{
+   min-height: 315px;
+
+}
+#main #bot{
+    min-height: 300px;
+}
+#footer{    
+    border:1px solid;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    background: rgb(159, 157, 157);
+    min-height: 45px;
+    width: 1000px;
+}
+#header ul{
+    margin: 0px;
+    padding: 0px;
+}
+#header ul li{
+    list-style: none;
+    float: right;
+    width: 90%;
+    font-size: 50px;
+}
+.tag
+{
+    width:100%;
+    height:60px;
+}
+.tag button         /*Chỉnh các button chọn kho hàng*/
+{
+    border-radius: 36%;
+    width: 10%  ;
+    height:50px;
+    font-size: 20px;
+    margin-left:3.5% ;
+    margin-right:2%;
+}
+.tag button:hover   /*hiệu ứng phóng to/thu nhỏ */
+{
+    transform: scale(1.1);
+}
+.tag button:focus
+{
+    background-color: #a1fff1;
+    
+}
+
+#footer ul{
+    margin: 0px;
+    padding: 0px;
+}
+#footer ul li{
+    list-style: none;
+    float: left;
+    width: 65%;
+    font-size: 15px;
+
+}
+
+#nd{
+    width: 100px;
+    height: 110px;
+    margin-left: 10%;
+    margin-top: 1%;
+    float: left;
+}
+img#nd1 
+{
+    width: 120px;
+    height: 120px;
+    margin-left: 50%;
+}
+h2      
+{
+    font-size: x-large;
+    width: 200px;
+    height: 10px;
+    margin-left: 60%;
+    color: rgb(7, 7, 7);
+}
+
+#da{
+    width: 100px;
+    height: 120px;
+    margin-left: 20%;
+    float: left;
+    margin-top: 1%;
+}
+img#da1 
+{
+    width: 120px;
+    height: 120px;
+    margin-left: 50%;
+}
+h4 
+{
+    font-size: x-large;
+    width: 120px;
+    height: 30px;
+    margin-left: 70%;
+    margin-top:45%;
+    color: rgb(7, 7, 7);
+}
+#lm{
+    width: 100px;
+    height: 120px;
+    margin-right: 17%;
+    margin-top: -0.7%;
+    float: right;
+}
+img#lm1 
+{
+    width: 120px;
+    height: 120px;
+    margin-right: 50%;
+}
+h6{
+    font-size: x-large;
+    width: 180px;
+    height: 30px;
+    margin-left: 10%;
+    color: rgb(9, 9, 9);
+}
+.thongso
+{
+    width: 95%;
+    height: 20%;
+    position: relative;
+    top:50%;
+    
+}
+#nhietdo
+{
+    position: relative; 
+    right:34%;
+    margin-top: 165px;
+    float: left;
+}
+#doam
+{
+    position: relative;
+    left: -8%;
+    margin-top: 165px;    
+    float: left;
+}
+#anhsang
+{
+    margin-top: 165px;
+    left: 10%;
+    float: right;
+    position: relative;
+}
+
+#bot {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;      /*xác định khoảng cách giữa các phần tử*/
+    margin-top: 25px;
+    margin-left: 80px;
+    margin-bottom: 25px;
+  }
+  
+  #control1, #control2, #control3 {     /*khung của các thiết bị*/
+    text-align: center;
+    border: 3px #13857b double;
+    border-radius: 30px;
+    width: 230px;
+    height: 300px;
+  }
+  #control1:hover, #control2:hover, #control3:hover
+  {
+    transform: scale(1.1);
+  }
+
+  
+  #control1 img, #control2 img, #control3 img {
+    display: block;
+    margin: 0 auto;
+    min-height: 120px;
+    width: 170px;
+    background-size: cover;
+  }
+  
+  #control1 h2, #control2 h2, #control3 h2 {    /*In tên của các thiết bị*/
+    margin-top: 20px;
+    font-size: 27px;
+    color: #1c605a;
+    font-family: tahoma;
+    margin: auto;
+  }
+
+ h1 #sos
+  {
+    font-size: x-large;
+    width: 200px;
+    height: 10px;
+    margin-left: 60%;
+    color: rgb(7, 7, 7);
+  }
+  
+  #control4 #sos, #control5 #sos, #control6 #sos, #control7 #sos {    /*In tên của các sos kho*/
+    margin-top: 30px;
+    font-size: 27px;
+    color: #1c605a;
+    font-family: tahoma;
+    margin: auto;
+  }
+
+
+  #bot2
+  {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;      /*xác định khoảng cách giữa các phần tử*/
+    margin-top: 45px;
+    margin-left: 100px;
+    margin-bottom: 25px;
+  }
+  #control4, #control5, #control6, #control7 {     /*khung của các SOS Kho*/
+    text-align: center;
+    border: 3px #13857b double;
+    border-radius: 30px;
+    margin-left: 50px ;
+    width: 230px;
+    height: 280px;
+  }
+
+  
+  #control1 button,
+  #control2 button,
+  #control3 button,
+  #control3 #btn7,
+  #control3 #btn8 {
+    margin-top: 10px;
+    width: 45px;
+    height: 35px;
+    font-size: 20px;
+    font-family: revert;
+    margin-right: auto;
+    border-radius: 35%;
+  }
+  #control3 #btn7:active,
+  #control3 #btn8:active 
+  {  
+    background-color: #13857b;  
+    transform: translateY(4px);
+  }
+  #control1 button:focus,
+  #control2 button:focus, 
+  #control3 #btn5:focus,
+  #control3 #btn6:focus 
+  {
+    background-color: #13857b;
+  }
+
+#time{
+    text-align: center;
+    font-family: tahoma;
+    border: 2px solid black;
+    border-radius: 50px;
+    margin-left: 43%;
+    margin-right: 43%;
+    background-color: #99CCFF;
+}
+
+#alertBox {             /*Thông báo thông số vượt quá ngưỡng*/
+    background-color: red;
+    text-align: center;
+    font-family: tahoma;
+    border: 2px solid black;
+    border-radius: 50px;
+    font-size: 22px;
+    margin-left: 30%;
+    margin-right: 32%;   
+}
+
+#alertBox1 {
+    background-color: red;
+    text-align: center;
+    font-family: tahoma;
+    border: 2px solid black;
+    border-radius: 50px;
+    font-size: 22px;
+    margin-left: 30%;
+    margin-right: 32%;   
+}
+
+#container1 {        /*khung cho bểu đồ nhiệt độ */
+    text-align: center;
+    border: 3px #13857b double;
+    border-radius: 80px;
+    margin-left: 250px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: 500px; 
+    height: 300px; 
+}
+
+#container2 {        /*khung cho bểu đồ độ ẩm */
+    text-align: center;
+    border: 3px #13857b double;
+    border-radius: 80px;
+    margin-left: 501px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: 490px; 
+    height: 300px; 
+}
+
+#container3 {        /*khung cho bểu đồ độ sáng*/
+    text-align: center;
+    border: 3px #13857b double;
+    border-radius: 80px;
+    margin-left: 0px;
+    margin-top: -315px;
+    margin-bottom: 10px;
+    width: 490px; 
+    height: 300px; 
+}
+
+
+.slidecontainer {      /*Thanh điều khiển độ sáng của đèn*/
+    width: 100%;
+  }
+  .slider {
+    margin-top: 20px;
+    width: 90%;
+    height: 30px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+  }
+  .slider:hover {
+    opacity: 1; /* Hiển thị đầy đủ khi di chuột qua */
+  }
+  /* Tay cầm trượt (sử dụng -webkit- (Chrome, Opera, Safari, Edge) và -moz- (Firefox) 
+  để ghi đè giao diện mặc định) */
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Ghi đè giao diện mặc định */
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background:#4CAF50;
+    cursor: pointer;
+  } 
+  .slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #4CAF50;
+    cursor: pointer;  /*con trỏ chuột sẽ thay đổi thành một hình dạng như mũi tên trỏ tay*/
+  }
+  
+  
+
+#myChart    /*biểu đồ nhiệt độ */
+{
+    margin-top: 31px;    
+}
+
+#myChart2   /*biểu đồ độ ẩm */
+{
+    margin-top: 41px;    
+}
+
+#myChart3
+{
+    margin-top: 41px; 
+}

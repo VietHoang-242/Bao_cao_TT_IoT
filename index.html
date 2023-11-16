@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id= "header">
+        <ul>
+             <li><b>SMART WAREHOUSE</b></li>
+             <img src="image\logo.png" id="logo">
+        </ul>
+    </div>
+    <div id= "banner">
+        <div class="tag">
+          <button onclick="window.location.href='index.html'"><b>Home</b></button>
+          <button onclick="window.location.href='Kho1.html'"><b>Kho 1</b></button>
+          <button onclick="window.location.href='Kho2.html'"><b>Kho 2</b></button>
+          <button onclick="window.location.href='Kho3.html'"><b>Kho 3</b></button>
+          <button onclick="window.location.href='Kho4.html'"><b>Kho 4</b></button>
+          <button onclick="window.location.href='Chart.html'"><b>Chart</b></button>
+        </div>
+    </div>
+    <div id= "main"> 
+        <div id="top">
+          <div id="time"> </div> 
+          <div id="alertBox">Nhiệt độ kho vượt quá ngưỡng!</div> 
+          <div id="alertBox1">Độ ẩm kho vượt quá ngưỡng!</div>
+          <script>
+            alertBox.style.display = "none";
+            alertBox1.style.display = "none";
+          </script>    
+                  
+          <script>
+          function dongho() {
+          var time = new Date();
+          var gio = time.getHours();
+          var phut = time.getMinutes();
+          var giay = time.getSeconds();
+          if (gio < 10) 
+          gio = "0" + gio;
+          if (phut < 10) 
+          phut = "0" + phut;
+          if (giay < 10) 
+          giay = "0" + giay;
+          document.getElementById("time").innerHTML = gio + ":" + phut + ":" + giay;
+          setTimeout("dongho()", 1000);
+          };
+          dongho();
+          </script>
+          
+        <div id="bot2">
+          <div id="control4">
+              <img src="image\call1.png"id="call4">              
+              <h1 id="sos">SOS Kho 1</h10>
+          </div>
+
+          <div id="control5">
+            <img src="image\call1.png"id="call5">            
+            <h1 id="sos">SOS Kho 2</h10>
+          </div>
+
+          <div id="control6">
+            <img src="image\call1.png"id="call6">            
+            <h1 id="sos">SOS Kho 3</h10>
+          </div>
+
+          <div id="control7">
+            <img src="image\call1.png"id="call7">            
+            <h1 id="sos">SOS Kho 4</h10>
+          </div>
+    </div>  
+    
+    <div id= "footer">
+         <ul>              
+              <li>  TT Kiến trúc và giao thức IoT </li>            
+
+        </ul>
+    </div>     
+   
+<script src="function.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyA-rmF6rmsquJCGaBK1oLFReoHMzBAgMKM",
+    authDomain: "dht11-68fae.firebaseapp.com",
+    databaseURL: "https://dht11-68fae-default-rtdb.firebaseio.com",
+    projectId: "dht11-68fae",
+    storageBucket: "dht11-68fae.appspot.com",
+    messagingSenderId: "242017278548",
+    appId: "1:242017278548:web:fdab4f8be7e32eb90e6bc1",
+    measurementId: "G-6JJQ262G2Y"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();  
+</script>
+
+<script>  
+  var audio1 = new Audio('nhac_chuong.mp3');
+</script>
+
+<script>
+    //Hiển thị cảnh báo
+    let img4 = document.querySelector('#call4');
+    let img5 = document.querySelector('#call5');
+    let img6 = document.querySelector('#call6');
+    let img7 = document.querySelector('#call7');    
+
+    var temperatureRef1 = firebase.database().ref('kho1').child('Nhietdo');
+      temperatureRef1.on("value", function(snapshot) {
+      var temperature1 = snapshot.val();      
+      if (temperature1 > 15) {
+        img4.src = 'image/callon.gif';
+        alertBox.style.display = "block"; // Hiển thị thông báo
+        audio1.play();
+      } else {
+        img4.src = 'image/call1.png';
+        alertBox.style.display = "none"; // Ẩn thông báo
+        audio1.pause();
+     }
+    });
+
+    var temperatureRef2 = firebase.database().ref('kho2').child('Nhietdo');
+      temperatureRef2.on("value", function(snapshot) {
+      var temperature2 = snapshot.val();      
+      if (temperature2 > 15) {
+        img5.src = 'image/callon.gif';
+        alertBox.style.display = "block"; // Hiển thị thông báo
+        audio1.play();
+      } else {
+        img5.src = 'image/call1.png';
+        alertBox.style.display = "none"; // Ẩn thông báo
+        audio1.pause();
+     }
+    });
+
+    var temperatureRef3 = firebase.database().ref('kho3').child('Nhietdo');
+      temperatureRef3.on("value", function(snapshot) {
+      var temperature3 = snapshot.val();      
+      if (temperature3 > 15) {
+        img6.src = 'image/callon.gif';
+        alertBox.style.display = "block"; // Hiển thị thông báo
+        audio1.play();
+      } else {
+        img6.src = 'image/call1.png';
+        alertBox.style.display = "none"; // Ẩn thông báo
+        audio1.pause();
+     }
+    });
+
+    var temperatureRef4 = firebase.database().ref('kho4').child('Nhietdo');
+      temperatureRef4.on("value", function(snapshot) {
+      var temperature4 = snapshot.val();      
+      if (temperature4 > 15) {
+        img7.src = 'image/callon.gif';
+        alertBox.style.display = "block"; // Hiển thị thông báo
+        audio1.play();
+      } else {
+        img7.src = 'image/call1.png';
+        alertBox.style.display = "none"; // Ẩn thông báo
+        audio1.pause();
+     }
+    });
+
+    //---------Độ ẩm------
+    var humidityRef1 = firebase.database().ref('kho1').child('Doam');
+      humidityRef1.on("value", function(snapshot) {
+      var humidity1 = snapshot.val();      
+      if (humidity1 > 40) {
+        img4.src = 'image/callon.gif';
+        alertBox1.style.display = "block"; // Hiển thị thông báo
+        audio1.play();
+      } else {
+        img4.src = 'image/call1.png';
+        alertBox1.style.display = "none"; // Ẩn thông báo
+        audio1.pause();
+     }
+    });
+
+    var humidityRef2 = firebase.database().ref('kho2').child('Doam');
+      humidityRef2.on("value", function(snapshot) {
+      var humidity2 = snapshot.val();      
+      if (humidity2 > 40) {
+        img5.src = 'image/callon.gif';
+        alertBox1.style.display = "block"; // Hiển thị thông báo
+        audio1.play();
+      } else {
+        img5.src = 'image/call1.png';
+        alertBox1.style.display = "none"; // Ẩn thông báo
+        audio1.pause();
+     }
+    });
+
+    var humidityRef3 = firebase.database().ref('kho3').child('Doam');
+      humidityRef3.on("value", function(snapshot) {
+      var humidity3 = snapshot.val();      
+      if (humidity3 > 40) {
+        img6.src = 'image/callon.gif';
+        alertBox1.style.display = "block"; // Hiển thị thông báo
+        audio1.play();
+      } else {
+        img6.src = 'image/call1.png';
+        alertBox1.style.display = "none"; // Ẩn thông báo
+        audio1.pause();
+     }
+    });
+
+    var humidityRef4 = firebase.database().ref('kho4').child('Doam');
+      humidityRef4.on("value", function(snapshot) {
+      var humidity4 = snapshot.val();      
+      if (humidity4 > 40) {
+        img7.src = 'image/callon.gif';
+        alertBox1.style.display = "block"; // Hiển thị thông báo
+        audio1.play();
+      } else {
+        img7.src = 'image/call1.png';
+        alertBox1.style.display = "none"; // Ẩn thông báo
+        audio1.pause();
+     }
+    }); 
+</script>
+
+</body>
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Management</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">   
+</head>
+<body>
+    <div id= "header">
+        <ul>
+             <li><b>SMART WAREHOUSE</b></li>
+             <img src="image\logo.png" id="logo">
+        </ul>
+    </div>
+    <div id= "banner">
+        <div class="tag">
+          <button onclick="window.location.href='index.html'"><b>Home</b></button>
+          <button onclick="window.location.href='Kho1.html'"><b>Kho 1</b></button>
+          <button onclick="window.location.href='Kho2.html'"><b>Kho 2</b></button>
+          <button onclick="window.location.href='Kho3.html'"><b>Kho 3</b></button>
+          <button onclick="window.location.href='Kho4.html'"><b>Kho 4</b></button>
+          <button onclick="window.location.href='Chart.html'"><b>Chart</b></button>
+        </div>
+    </div>
+    <div id= "main"> 
+        <div id="top">
+          <div id="time"> </div> 
+                           
+          <script>
+          function dongho() {
+          var time = new Date();
+          var gio = time.getHours();
+          var phut = time.getMinutes();
+          var giay = time.getSeconds();
+          if (gio < 10) 
+          gio = "0" + gio;
+          if (phut < 10) 
+          phut = "0" + phut;
+          if (giay < 10) 
+          giay = "0" + giay;
+          document.getElementById("time").innerHTML = gio + ":" + phut + ":" + giay;
+          setTimeout("dongho()", 1000);
+          };
+          dongho();
+          </script>
+          
+        <div id="container1">
+          <canvas id="myChart"></canvas>
+        </div>
+
+        <div id="container2">
+          <canvas id="myChart2"></canvas>
+        </div>
+
+        <div id ="container3">
+          <canvas id="myChart3"></canvas>
+        </div>
+
+    </div>  
+    
+    <div id= "footer">
+         <ul>
+          
+            <li>  TT Kiến trúc và giao thức IoT </li>   
+
+        </ul>
+    </div>     
+   
+<script src="function.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyA-rmF6rmsquJCGaBK1oLFReoHMzBAgMKM",
+    authDomain: "dht11-68fae.firebaseapp.com",
+    databaseURL: "https://dht11-68fae-default-rtdb.firebaseio.com",
+    projectId: "dht11-68fae",
+    storageBucket: "dht11-68fae.appspot.com",
+    messagingSenderId: "242017278548",
+    appId: "1:242017278548:web:fdab4f8be7e32eb90e6bc1",
+    measurementId: "G-6JJQ262G2Y"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();  
+</script>
+
+<script>   //Biểu đồ nhiệt độ
+  var temperatureRef1 = firebase.database().ref('kho1').child('Nhietdo');
+  temperatureRef1.on("value", function(snapshot) 
+{
+    var temperature1 = snapshot.val();
+
+    var temperatureRef2 = firebase.database().ref('kho2').child('Nhietdo');
+    temperatureRef2.on("value", function(snapshot) 
+    {
+        var temperature2 = snapshot.val();
+
+        var temperatureRef3 = firebase.database().ref('kho3').child('Nhietdo');
+        temperatureRef3.on("value", function(snapshot) 
+        {
+            var temperature3= snapshot.val();
+
+            var temperatureRef4 = firebase.database().ref('kho4').child('Nhietdo');
+            temperatureRef4.on("value", function(snapshot) 
+            {
+                var temperature4 = snapshot.val();
+
+                let myChart = document.getElementById('myChart').getContext('2d');
+  // Global Options
+                Chart.defaults.global.defaultFontFamily = 'x-large';
+                Chart.defaults.global.defaultFontSize = 15;
+                Chart.defaults.global.defaultFontColor = '#777';
+
+                let massPopChart = new Chart(myChart, {
+                  type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+                  data:{
+                    labels:['KHO 1', 'KHO 2', 'KHO3', 'KHO 4'],
+                    datasets:[{
+                      label:'NHIỆT ĐỘ',
+                      data:[ temperature1, temperature2, temperature3, temperature4 ],
+                      //backgroundColor:'green',
+                      backgroundColor:[          
+                        'rgba(54, 162, 235, 0.6)',          
+                        'rgba(75, 192, 192, 0.6)',          
+                        'rgba(255, 159, 64, 0.6)',  
+                        'rgba(100, 159, 64, 0.6)'                                                       
+                      ],
+                      borderWidth:1,
+                      borderColor:'#777',
+                      hoverBorderWidth:3,
+                      hoverBorderColor:'#000'
+                    }]
+                  },
+                  options:{                    
+                    title:{
+                      display:true,
+                      text:'NHIỆT ĐỘ CỦA BỐN KHO (°C)',
+                      fontSize:20
+                    },
+                    legend:{
+                      display: false,
+                      position:'right',
+                      labels:{
+                        fontColor:'#000'
+                      }
+                    },
+                    layout:{
+                      padding:{
+                        left:50,
+                        right:0,
+                        bottom:0,
+                        top:0
+                      }
+                    },
+                    tooltips:{
+                      enabled:true  //khi người dùng di chuột qua một điểm dữ liệu trên biểu đồ, một cửa sổ thông tin nhỏ sẽ xuất hiện hiển thị các giá trị liên quan
+                    },
+                    scales:{
+                      yAxes: [{
+                        ticks: {
+                          beginAtZero: true
+                        }
+                      }]
+                    }
+                  }
+                });            
+            });
+        });
+    });
+});
+</script>
+
+<script>    //Biểu đồ độ ẩm 
+  var humidityRef1 = firebase.database().ref('kho1').child('Doam');
+  humidityRef1.on("value", function(snapshot) 
+{
+    var humidity1 = snapshot.val();
+
+    var humidityRef2 = firebase.database().ref('kho2').child('Doam');
+    humidityRef2.on("value", function(snapshot) 
+    {
+        var humidity2 = snapshot.val();
+
+        var humidityRef3 = firebase.database().ref('kho3').child('Doam');
+        humidityRef3.on("value", function(snapshot) 
+        {
+            var humidity3= snapshot.val();
+
+            var humidityRef4 = firebase.database().ref('kho4').child('Doam');
+            humidityRef4.on("value", function(snapshot) 
+            {
+                var humidity4 = snapshot.val();
+
+                let myChart2 = document.getElementById('myChart2').getContext('2d');
+  // Global Options
+                Chart.defaults.global.defaultFontFamily = 'x-large';
+                Chart.defaults.global.defaultFontSize = 15;
+                Chart.defaults.global.defaultFontColor = '#777';
+
+                let massPopChart = new Chart(myChart2, {
+                  type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+                  data:{
+                    labels:['KHO 1', 'KHO 2', 'KHO3', 'KHO 4'],
+                    datasets:[{
+                      label:'ĐỘ ẨM',
+                      data:[ humidity1, humidity2, humidity3, humidity4 ],
+                      //backgroundColor:'green',
+                      backgroundColor:[          
+                        'rgba(54, 162, 235, 0.6)',          
+                        'rgba(75, 192, 192, 0.6)',          
+                        'rgba(255, 159, 64, 0.6)', 
+                        'rgba(100, 159, 64, 0.6)',         
+                      ],
+                      borderWidth:1,
+                      borderColor:'#777',
+                      hoverBorderWidth:3,
+                      hoverBorderColor:'#000'
+                    }]
+                  },
+                  options:{                    
+                    title:{
+                      display:true,
+                      text:'ĐỘ ẨM CỦA BỐN KHO (%)',
+                      fontSize:20
+                    },
+                    legend:{
+                      display:false,
+                      position:'right',
+                      labels:{
+                        fontColor:'#000'
+                      }
+                    },
+                    layout:{
+                      padding:{
+                        left:50,
+                        right:0,
+                        bottom:0,
+                        top:0
+                      }
+                    },
+                    tooltips:{
+                      enabled:true  //khi người dùng di chuột qua một điểm dữ liệu trên biểu đồ, một cửa sổ thông tin nhỏ sẽ xuất hiện hiển thị các giá trị liên quan
+                    },
+                    scales:{
+                      yAxes: [{
+                        ticks: {
+                          beginAtZero: true
+                        }
+                      }]
+                    }
+                  }
+                });            
+            });
+        });
+    });
+});
+</script>
+
+<script>    //Biểu đồ ánh sáng 
+  var brightnessRef1 = firebase.database().ref('kho1').child('Anhsang');
+  brightnessRef1.on("value", function(snapshot) 
+{
+    var brightness1 = snapshot.val();
+
+    var brightnessRef2 = firebase.database().ref('kho2').child('Anhsang');
+    brightnessRef2.on("value", function(snapshot) 
+    {
+        var brightness2 = snapshot.val();
+
+        var brightnessRef3 = firebase.database().ref('kho3').child('Anhsang');
+        brightnessRef3.on("value", function(snapshot) 
+        {
+            var brightness3= snapshot.val();
+
+            var brightnessRef4 = firebase.database().ref('kho4').child('Anhsang');
+            brightnessRef4.on("value", function(snapshot) 
+            {
+                var brightness4 = snapshot.val();
+
+                let myChart3 = document.getElementById('myChart3').getContext('2d');
+  
+                Chart.defaults.global.defaultFontFamily = 'x-large';
+                Chart.defaults.global.defaultFontSize = 15;
+                Chart.defaults.global.defaultFontColor = '#777';
+
+                let massPopChart = new Chart(myChart3, {
+                  type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+                  data:{
+                    labels:['KHO 1', 'KHO 2', 'KHO3', 'KHO 4'],
+                    datasets:[{
+                      label:'ĐỘ SÁNG',
+                      data:[ brightness1, brightness2, brightness3, brightness4 ],
+                      //backgroundColor:'green',
+                      backgroundColor:[          
+                        'rgba(54, 162, 235, 0.6)',          
+                        'rgba(75, 192, 192, 0.6)',          
+                        'rgba(255, 159, 64, 0.6)',
+                        'rgba(100, 159, 64, 0.6)',          
+                      ],
+                      borderWidth:1,
+                      borderColor:'#777',
+                      hoverBorderWidth:3,
+                      hoverBorderColor:'#000'
+                    }]
+                  },
+                  options:{                    
+                    title:{
+                      display:true,
+                      text:'ĐỘ SÁNG CỦA BỐN KHO (Lux)',
+                      fontSize:20
+                    },
+                    legend:{
+                      display:false,
+                      position:'right',
+                      labels:{
+                        fontColor:'#000'
+                      }
+                    },
+                    layout:{
+                      padding:{
+                        left:50,
+                        right:0,
+                        bottom:0,
+                        top:0
+                      }
+                    },
+                    tooltips:{
+                      enabled:true  //khi người dùng di chuột qua một điểm dữ liệu trên biểu đồ, một cửa sổ thông tin nhỏ sẽ xuất hiện hiển thị các giá trị liên quan
+                    },
+                    scales:{
+                      yAxes: [{
+                        ticks: {
+                          beginAtZero: true
+                        }
+                      }]
+                    }
+                  }
+                });            
+            });
+        });
+    });
+});
+</script>
+
+</body>
+</html>
+
+

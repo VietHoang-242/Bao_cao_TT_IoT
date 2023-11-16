@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id= "header">
+        <ul>
+             <li><b>SMART WAREHOUSE</b></li>
+             <img src="image\logo.png" id="logo">
+        </ul>
+    </div>
+    <div id= "banner">
+        <div class="tag">
+            <button onclick="window.location.href='index.html'"><b>Home</b></button>
+            <button onclick="window.location.href='Kho1.html'"><b>Kho 1</b></button>
+            <button onclick="window.location.href='Kho2.html'"><b>Kho 2</b></button>
+            <button onclick="window.location.href='Kho3.html'"><b>Kho 3</b></button>
+            <button onclick="window.location.href='Kho4.html'"><b>Kho 4</b></button>
+            <button onclick="window.location.href='Chart.html'"><b>Chart</b></button>            
+        </div>
+    </div>
+    <div id= "main"> 
+        <div id="top">
+          <div id="time"> </div>
+          <div id="alertBox">Nhiệt độ kho vượt quá ngưỡng!</div> 
+          <div id="alertBox1">Độ ẩm kho vượt quá ngưỡng!</div>
+          <script>
+            alertBox.style.display = "none";
+            alertBox1.style.display = "none";
+          </script>    
+          
+           <script>
+          function dongho() {
+          var time = new Date();
+          var gio = time.getHours();
+          var phut = time.getMinutes();
+          var giay = time.getSeconds();
+          if (gio < 10) 
+          gio = "0" + gio;
+          if (phut < 10) 
+          phut = "0" + phut;
+          if (giay < 10) 
+          giay = "0" + giay;
+          document.getElementById("time").innerHTML = gio + ":" + phut + ":" + giay;
+          setTimeout("dongho()", 1000);
+          };
+          dongho();
+          </script>
+          <div id="nd"> 
+            <h1><img src="hot.png" id="nd1"></h1>
+            <h2>Nhiệt độ</h2>
+          </div>
+          <div id="da"> 
+            <h3><img src="humidity.png" id="da1"></h3>
+            <h4>Độ ẩm</h4>
+          </div>
+          <div id="lm"> 
+            <h5><img src="sunshine.png" id="lm1"></h5>
+            <h6>Ánh sáng</h6>
+          </div>
+          <div class="thongso">
+            <h7 id="nhietdo"></h7>
+            <h7 id="doam"></h7>
+            <h7 id="anhsang"></h7>
+          </div>
+        </div>
+        <div id="bot">
+          <div id="control1">
+            <img src="image\dehumidifier1.png"id="dehumidifier">
+            <button type="button" id="btn1" >On</button>
+            <button type="button" id="btn2" >Off</button><br><br>
+            <h2>Máy hút ẩm</h2>
+          </div>
+
+          <div id="control2">
+            <img src="image\den1.png"id="den">
+            <h2>Đèn</h2>
+            <div class="slidecontainer">
+              <input type="range" min="0" max="100" value="0" class="slider" id="myRange">
+              <p>Value: <span id="demo"></span></p>
+            </div> 
+          </div>
+
+          <div id="control3">
+            <img src="image\maylanh1.jpg" width="200" height="125" id="maylanh">
+            <button type="button" id="btn5" >On</button>
+            <button type="button" id="btn6" >Off</button><br>
+            <button type="button" id="btn7" onclick="Tang_nd()" >+</button>
+            <button type="button" id="btn8" onclick="Giam_nd()">-</button><br><br>
+            <h2>Máy lạnh</h2>
+          </div>
+    </div>
+    <div id= "footer">
+         <ul>
+            <li>  TT Kiến trúc và giao thức IoT </li>   
+
+        </ul>
+    </div>
+    <script src="function.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyA-rmF6rmsquJCGaBK1oLFReoHMzBAgMKM",
+    authDomain: "dht11-68fae.firebaseapp.com",
+    databaseURL: "https://dht11-68fae-default-rtdb.firebaseio.com",
+    projectId: "dht11-68fae",
+    storageBucket: "dht11-68fae.appspot.com",
+    messagingSenderId: "242017278548",
+    appId: "1:242017278548:web:fdab4f8be7e32eb90e6bc1",
+    measurementId: "G-6JJQ262G2Y"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();  
+</script>
+
+<script>
+  function Tang_nd(){
+  var dt = firebase.database().ref("kho4").child('Nhietdo')
+  dt.transaction((currentValue) => {
+      if (currentValue !== null) {
+        return currentValue + 1;
+      }
+      return 1;
+    }, (error, committed, snapshot) => {
+      if (error) {
+        console.error('Transaction failed:', error);
+      } else if (!committed) {
+        console.warn('Transaction aborted');
+      } else {
+        console.log('Transaction completed!');
+        const updatedValue = snapshot.val();
+        console.log('Updated value:', updatedValue);
+      }
+    });
+  }
+</script>
+
+<script>
+  function Giam_nd(){
+  var dt = firebase.database().ref("kho4").child('Nhietdo')
+  dt.transaction((currentValue) => {
+      if (currentValue !== null) {
+        return currentValue - 1;
+      }
+      return 1;
+    }, (error, committed, snapshot) => {
+      if (error) {
+        console.error('Transaction failed:', error);
+      } else if (!committed) {
+        console.warn('Transaction aborted');
+      } else {
+        console.log('Transaction completed!');
+        const updatedValue = snapshot.val();
+        console.log('Updated value:', updatedValue);
+      }
+    });
+  }
+</script>
+
+<script>
+  var nhietDo_k4 = document.getElementById('nhietdo');
+  var dbRef10 = firebase.database().ref('kho4').child('Nhietdo');
+  var doAm_k4 = document.getElementById('doam');
+  var dbRef11 = firebase.database().ref('kho4').child('Doam');
+  var anhSang_k4 = document.getElementById('anhsang');
+  var dbRef12 = firebase.database().ref('kho4').child('Anhsang');
+  var audio1 = new Audio('nhac_chuong.mp3');
+
+  dbRef10.on('value', snap => nhietDo_k4.innerText = snap.val()+ "°C");
+  dbRef11.on('value', snap => doAm_k4.innerText = snap.val()+ "%");
+  dbRef12.on('value', snap => anhSang_k4.innerText = snap.val()+ "Lux");
+
+  //Hiển thị cảnh báo
+  var alertBox = document.getElementById("alertBox");
+      var temperatureRef = firebase.database().ref('kho4').child('Nhietdo');
+
+      temperatureRef.on("value", function(snapshot) {
+      var temperature = snapshot.val();      
+      if (temperature > 15) {
+         alertBox.style.display = "block"; // Hiển thị thông báo
+         audio1.play();
+      } else {
+          alertBox.style.display = "none"; // Ẩn thông báo
+          audio1.pause();
+     }
+    });
+
+    var humidityRef4 = firebase.database().ref('kho4').child('Doam');
+      humidityRef4.on("value", function(snapshot) {
+      var humidity4 = snapshot.val();      
+      if (humidity4 > 40) {
+        img7.src = 'image/callon.gif';
+        alertBox1.style.display = "block"; // Hiển thị thông báo
+        audio1.play();
+      } else {
+        img7.src = 'image/call1.png';
+        alertBox1.style.display = "none"; // Ẩn thông báo
+        audio1.pause();
+     }
+    });
+</script>
+
+</body>
+</html>
